@@ -1,0 +1,17 @@
+spring:
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+  kafka:
+    bootstrap-servers: localhost:9092
+
+rabbitmq:
+  exchange: order-exchange
+  routingkey: order-routing-key
+
+kafka:
+  topics:
+    order-confirmed: order-confirmed-topic
+    ready-to-delivery: ready-to-delivery-topic

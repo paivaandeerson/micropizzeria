@@ -16,6 +16,16 @@ spring:
     console:
       enabled: true
       path: /h2
+  rabbitmq:
+     host: localhost
+     port: 5672
+     username: guest
+     password: guest
+
+
+rabbitmq:
+  exchange: order-exchange
+  routingkey: order-routing-key
 
 #environment behaviors
 feature-toggle:
@@ -27,3 +37,4 @@ external:
     url: http://external-payment-api.com/payments
   status-order-api:
     url: http://external-status-api.com/status
+

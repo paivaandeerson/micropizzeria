@@ -4,6 +4,7 @@ import com.micropizzeria.marketplace.domain.model.Order;
 import com.micropizzeria.marketplace.domain.repository.OrderRepository;
 import com.micropizzeria.marketplace.domain.repository.PaymentRepository;
 import com.micropizzeria.marketplace.domain.repository.StatusOrderRepository;
+import com.micropizzeria.marketplace.infrastructure.RabbitMQProducer;
 import com.micropizzeria.marketplace.sdk.Notification;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,12 +17,17 @@ public class OrderService {
     private final OrderRepository orderRepository;
     private final PaymentRepository paymentRepository;
     private final StatusOrderRepository statusOrderRepository;
+    private final RabbitMQProducer rabbitMQProducer;
 
     @Autowired
-    public OrderService(OrderRepository orderRepository, PaymentRepository paymentRepository, StatusOrderRepository statusOrderRepository) {
+    public OrderService(OrderRepository orderRepository,
+                        PaymentRepository paymentRepository,
+                        StatusOrderRepository statusOrderRepository,
+                        RabbitMQProducer rabbitMQProducer) {
         this.orderRepository = orderRepository;
         this.paymentRepository = paymentRepository;
         this.statusOrderRepository = statusOrderRepository;
+        this.rabbitMQProducer = rabbitMQProducer;
     }
 
     public Notification<UUID> placeOrder(Order order) {
@@ -33,13 +39,15 @@ public class OrderService {
         }
 
         if (paymentRepository.processPayment(order)) {
+            //should use SAGA
             orderRepository.save(order);
+            rabbitMQProducer.sendMessage(order);
             notification.setResult(order.getUuid());
             return notification;
-        } else {
-            notification.addError("Payment not approved");
-            return notification;
         }
+
+        notification.addError("Payment not approved");
+        return notification;
     }
 
     public Notification<String> getOrderStatus(UUID orderId) {
