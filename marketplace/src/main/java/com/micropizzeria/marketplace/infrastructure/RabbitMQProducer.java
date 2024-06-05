@@ -11,6 +11,9 @@ import org.springframework.stereotype.Component;
 @Component
 public class RabbitMQProducer {
 
+    @Value("#{T(Boolean).parseBoolean('${feature-toggle.kitchen-mq}')}")
+    private Boolean useMQ;
+
     @Autowired
     private ObjectMapper objectMapper;
 
@@ -24,6 +27,9 @@ public class RabbitMQProducer {
     private String routingkey;
 
     public void sendMessage(Order order) {
+        if (!useMQ)
+            return;
+
         try {
             String orderJson = objectMapper.writeValueAsString(order);
             rabbitTemplate.convertAndSend(exchange, routingkey, orderJson);

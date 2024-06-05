@@ -12,7 +12,7 @@ export class PaymentService {
   }
 
   async initiatePayment(paymentDetails: PaymentDetails) {
-    const payment = this.paymentRepository.createPayment(paymentDetails);
+    const payment = await this.paymentRepository.createPayment(paymentDetails);
     const response = await this.adyenService.processPayment(payment);
     return response;
   }

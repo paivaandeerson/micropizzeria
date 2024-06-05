@@ -1,16 +1,20 @@
 {
   "name": "payment-api",
   "version": "1.0.0",
-  "type": "module",
   "main": "src/server.ts",
   "scripts": {
-    "start": "node src/server.ts",
+    "start-cli": "ts-node src/server.ts",
+    "start": "node dist/server.js",
     "build": "tsc",
-    "dev": "ts-node-dev --respawn src/server.ts"
+    "dev": "ts-node-dev --respawn src/server.ts",
+    "docker:dev": "docker-compose up --build"
   },
   "dependencies": {
-    "axios": "^0.21.1",
-    "express": "^4.17.1"
+    "@types/mongodb": "^4.0.7",
+    "axios": "^0.21.4",
+    "express": "^4.17.1",
+    "mongodb": "^6.7.0",
+    "mongodb-memory-server": "^9.3.0"
   },
   "devDependencies": {
     "@types/express": "^4.17.11",

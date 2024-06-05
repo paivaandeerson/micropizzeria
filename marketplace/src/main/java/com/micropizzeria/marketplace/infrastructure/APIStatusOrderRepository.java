@@ -14,7 +14,7 @@ public class APIStatusOrderRepository implements StatusOrderRepository {
     @Value("${external.statusorder-api.url}")
     private String statusApiUrl;
 
-    @Value("${feature-toggle.use-status-order-api}")
+    @Value("#{T(Boolean).parseBoolean('${feature-toggle.use-status-order-api}')}")
     private Boolean useApiUrl;
 
     private final RestTemplate restTemplate = new RestTemplate();

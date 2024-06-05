@@ -11,13 +11,15 @@ public class OrderProcessingService {
     private EventProducer eventProducer;
 
     public void processOrder(String order) throws InterruptedException {
+
+            System.out.println("order received:" + order);
             // Simulate processing time
             Thread.sleep(60000);
-            eventProducer.sendMessage("order-confirmed-topic", "Order confirmed");
+//            eventProducer.sendMessage("order-confirmed-topic", "Order confirmed");
 
             // Simulate additional processing time
             Thread.sleep(60000);
-            eventProducer.sendMessage("ready-to-delivery-topic", "Ready to delivery");
+//            eventProducer.sendMessage("ready-to-delivery-topic", "Ready to delivery");
 
 
     }

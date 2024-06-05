@@ -23,6 +23,9 @@ public class Order {
     @Column(name="`status`")
     private String status;
 
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    private Payment payment;
+
     @OneToMany(cascade = CascadeType.ALL)
     private List<Pizza> pizzas;
 }

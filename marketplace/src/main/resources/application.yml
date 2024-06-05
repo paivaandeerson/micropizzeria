@@ -29,12 +29,14 @@ rabbitmq:
 
 #environment behaviors
 feature-toggle:
-  use-status-order-api: false
-  use-payment-api: false
+  use-status-order-api: true
+  use-payment-api: true
+  kitchen-mq: true
 
 external:
   payment-api:
-    url: http://external-payment-api.com/payments
+    url: http://localhost:3000/api/initiatePayment
   status-order-api:
     url: http://external-status-api.com/status
+
 

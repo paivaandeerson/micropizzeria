@@ -11,18 +11,26 @@ const paymentService = new PaymentService(paymentRepository, adyenService);
 
 // Health Check Endpoint
 router.get('/health', (req: Request, res: Response) => {
-    res.status(200).send({ status: 'OK', message: 'Payment service is up and running!' });
+  res.status(200).send({
+    status: 'OK',
+    message: 'Payment service is up and running!'
   });
-  
+});
+
+router.get('/all', async (req: Request, res: Response) => {
+  const all = await paymentRepository.getAll();
+  res.status(200).send(all);
+});
+
 router.post('/initiatePayment', async (req: Request, res: Response) => {
   const paymentDetails = req.body;
-  
+
   try {
     const response = await paymentService.initiatePayment(paymentDetails);
-    
+
     switch (response.resultCode) {
       case "Authorised":
-        res.redirect('/result/success');
+        res.send({response: "success"});
         break;
       case "Pending":
       case "Received":

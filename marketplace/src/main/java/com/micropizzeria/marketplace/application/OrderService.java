@@ -42,6 +42,7 @@ public class OrderService {
             //should use SAGA
             orderRepository.save(order);
             rabbitMQProducer.sendMessage(order);
+            System.out.println("order created: "+order.getUuid());
             notification.setResult(order.getUuid());
             return notification;
         }
