@@ -3,7 +3,7 @@ Start RabbitMQ
 1. Init `docker pull rabbitmq:management`
 2. `docker run -d --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:management
   `
-3. Browser > http://localhost:15672/ guest / guest > Add queue: `order-queue` > Add exchange `order-exchange`> edit exchange bind using `order-routing-key` OR <pre>`
+3. To access the manager Browser > http://localhost:15672/ guest / guest > Add queue: `order-queue` > Add exchange `order-exchange`> edit exchange bind using `order-routing-key` OR <pre>`
 docker exec -it rabbitmq bash -c "
     apt-get update && \
     apt-get install -y curl && \
@@ -23,3 +23,4 @@ Start Kafka
    -e KAFKA_ZOOKEEPER_CONNECT=zookeeper:2181 
    -e KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://localhost:9092 
    confluentinc/cp-kafka:latest`
+4. To access the manager `docker run -d --name=kafka-manager -p 9000:9000 -e ZK_HOSTS="zookeeper:2181" hlebalbau/kafka-manager:latest`

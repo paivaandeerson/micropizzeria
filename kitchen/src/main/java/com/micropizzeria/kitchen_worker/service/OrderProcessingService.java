@@ -13,15 +13,17 @@ public class OrderProcessingService {
 
     public void processOrder(OrderDTO order) throws InterruptedException {
 
-            System.out.println("Order received:" + order.getUuid());
-            // Simulate cooking time
-            Thread.sleep(30000);
-            eventProducer.sendMessage("order-topic", "Order confirmed");
+        System.out.println("Order received:" + order.getUuid());
+        // Simulate cooking time
+        Thread.sleep(30000);
+        eventProducer.sendMessage("order-confirmed-topic", "Order confirmed");
+        System.out.println("an event was dispatched in order-confirmed-topic");
 
 
-            // Simulate additional processing time
-            Thread.sleep(30000);
-            eventProducer.sendMessage("delivery-topic", "Ready to delivery");
-            System.out.println("Ready to deliver" + order.getUuid());
+        // Simulate additional processing time
+        Thread.sleep(30000);
+        eventProducer.sendMessage("order-finished-topic", "Ready to delivery");
+        System.out.println("Ready to deliver" + order.getUuid());
+        System.out.println("an event was dispatched in order-finished-topic");
     }
 }

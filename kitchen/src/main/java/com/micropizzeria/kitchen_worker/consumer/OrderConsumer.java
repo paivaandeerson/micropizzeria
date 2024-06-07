@@ -18,7 +18,7 @@ public class OrderConsumer {
     private OrderProcessingService orderProcessingService;
 
     @RabbitListener(queues = "order-queue")
-    public void consumeOrder(String command) throws InterruptedException, JsonProcessingException {
+    public void consumeCreateOrder(String command) throws InterruptedException, JsonProcessingException {
         ObjectMapper objectMapper = new ObjectMapper();
         var orderDTO = objectMapper.readValue(command, OrderDTO.class);
         orderProcessingService.processOrder(orderDTO);
