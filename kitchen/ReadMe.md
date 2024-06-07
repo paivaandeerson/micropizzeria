@@ -8,5 +8,9 @@ Start RabbitMQ
 Start Kafka
 
 1. `docker pull confluentinc/cp-kafka`
-2. `docker run -d --name zookeeper -p 2181:2181 confluentinc/cp-zookeeper:latest`
-3. Optional `docker run -d --name kafka -p 9092:9092 --link zookeeper:zookeeper confluentinc/cp-kafka:latest`
+2. `docker run -d --name zookeeper -p 2181:2181 -e ZOOKEEPER_CLIENT_PORT=2181 confluentinc/cp-zookeeper:latest
+   `
+3. `docker run -d --name kafka -p 9092:9092 --link zookeeper 
+   -e KAFKA_ZOOKEEPER_CONNECT=zookeeper:2181 
+   -e KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://localhost:9092 
+   confluentinc/cp-kafka:latest`

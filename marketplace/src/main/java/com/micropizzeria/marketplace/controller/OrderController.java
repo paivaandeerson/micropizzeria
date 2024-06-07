@@ -20,8 +20,8 @@ public class OrderController {
         this.orderService = orderService;
     }
     @GetMapping("/status/{orderId}")
-    public ResponseEntity<String> getOrderStatus(@PathVariable UUID orderId) {
-        var notification = orderService.getOrderStatus(orderId);
+    public ResponseEntity<String> queryOrderStatus(@PathVariable UUID orderId) {
+        var notification = orderService.queryOrderStatus(orderId);
         if (notification.getResult() == null) {
             return new ResponseEntity<>(notification.getErrors().getFirst(), HttpStatus.NOT_FOUND);
         }
@@ -33,13 +33,13 @@ public class OrderController {
 
         return ResponseEntity.ok(new Object() {
             public final String status = "OK";
-            public final String message = "order api is up and running!";
+            public final String message = "payment api is up and running!";
         });
     }
 
     @PostMapping
-    public ResponseEntity<?> placeOrder(@RequestBody Order order) {
-        var notification = orderService.placeOrder(order);
+    public ResponseEntity<?> placeOrder(@RequestBody Order orderCommand) {
+        var notification = orderService.placeOrder(orderCommand);
         var orderId = notification.getResult();
         if (orderId != null) {
             return new ResponseEntity<>(orderId, HttpStatus.ACCEPTED);

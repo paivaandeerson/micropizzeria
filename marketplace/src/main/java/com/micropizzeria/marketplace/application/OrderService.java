@@ -30,20 +30,20 @@ public class OrderService {
         this.rabbitMQProducer = rabbitMQProducer;
     }
 
-    public Notification<UUID> placeOrder(Order order) {
+    public Notification<UUID> placeOrder(Order orderCommand) {
         var notification = new Notification<UUID>();
 
-        if (order.getPizzas().isEmpty()) {
+        if (orderCommand.getPizzas().isEmpty()) {
             notification.addError("At least 1 pizza is required");
             return notification;
         }
 
-        if (paymentRepository.processPayment(order)) {
+        if (paymentRepository.processPayment(orderCommand)) {
             //should use SAGA
-            orderRepository.save(order);
-            rabbitMQProducer.sendMessage(order);
-            System.out.println("order created: "+order.getUuid());
-            notification.setResult(order.getUuid());
+            orderRepository.save(orderCommand);
+            rabbitMQProducer.sendMessage(orderCommand);
+            System.out.println("order created: "+ orderCommand.getUuid());
+            notification.setResult(orderCommand.getUuid());
             return notification;
         }
 
@@ -51,7 +51,7 @@ public class OrderService {
         return notification;
     }
 
-    public Notification<String> getOrderStatus(UUID orderId) {
+    public Notification<String> queryOrderStatus(UUID orderId) {
         var notification = new Notification<String>();
         var status = statusOrderRepository.getStatus(orderId);
 
