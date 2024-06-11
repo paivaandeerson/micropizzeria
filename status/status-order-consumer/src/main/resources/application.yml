@@ -2,9 +2,12 @@ spring:
   kafka:
     consumer:
       bootstrap-servers: localhost:9092
-      group-id: delivery-group
+      group-id: order-finished
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       auto-offset-reset: earliest
     topic:
-      name: ready-to-delivery
+      name: order-finished-topic
+
+server:
+  port: 8084

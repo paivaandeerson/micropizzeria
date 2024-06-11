@@ -22,6 +22,8 @@ spring:
      username: guest
      password: guest
 
+server:
+  port: 8081
 
 rabbitmq:
   exchange: order-exchange

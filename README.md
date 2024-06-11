@@ -1,30 +1,18 @@
 # micropizzeria microservices
 
-### 1. Run RabbitMQ
-1. Init `docker pull rabbitmq:management`
-2. `docker run -d --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:management `
-3. Browser > http://localhost:15672/ guest / guest > Add queue: `order-queue` > Add exchange `order-exchange`> edit exchange bind using `order-routing-key` OR <pre>`
-docker exec -it rabbitmq bash -c "
-    apt-get update && \
-    apt-get install -y curl && \
-    curl -LO http://localhost:15672/cli/rabbitmqadmin && \
-    chmod +x rabbitmqadmin && \
-    ./rabbitmqadmin declare queue name=order-queue durable=true && \
-    ./rabbitmqadmin declare exchange name=order-exchange type=direct durable=true && \
-    ./rabbitmqadmin declare binding source='order-exchange' destination_type='queue' destination='order-queue' routing_key='order-routing-key' </pre>
-"`
+### 1. Run separeted containers
+1. [marketplace-front](./marketplace/)
+2. [marketplace-api](./marketplace/)
+3. [payment-api](./payment/)
 
-### 2. Run payment-api
-`npm start`
+### 2. Run docker compose:
 
-to run on docker: 
-- `docker build -t payment-api .`
-- `docker run -p 3000:3000 payment-api`
+<pre>docker-compose up -d</pre>
+To destroy
+<pre>docker-compose down</pre>
 
-### 3. Run kitchen-worker
-TODO run on docker
-
-### 4. Run marketplace-api
-TODO run on docker
+2.1. RabbitMQ Manager http://localhost:15672/ guest / guest 
+ 
+2.2. CMAK Kafka Manager http://localhost:9000/
 
 ![Technologies](util/technologies.png)
