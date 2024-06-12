@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class RabbitMQProducer {
 
-    @Value("#{T(Boolean).parseBoolean('${feature-toggle.kitchen-mq}')}")
+    @Value("#{T(Boolean).parseBoolean('${feature-toggle.use-kitchen-mq}')}")
     private Boolean useMQ;
 
     @Autowired

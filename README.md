@@ -7,7 +7,12 @@
 
 ### 2. Run docker compose:
 
-<pre>docker-compose up -d</pre>
+To update
+<pre>docker-compose up --build</pre>
+
+To run the available version
+<pre>docker-compose up</pre>
+
 To destroy
 <pre>docker-compose down</pre>
 

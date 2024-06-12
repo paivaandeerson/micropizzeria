@@ -1,0 +1,12 @@
+spring:
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+
+external:
+  payment-api:
+    url: http://localhost:3000/api/initiatePayment
+  status-order-api:
+    url: http://external-status-api.com/status

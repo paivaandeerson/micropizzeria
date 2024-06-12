@@ -1,4 +1,6 @@
 spring:
+  application:
+    name: status-order-consumer
   kafka:
     consumer:
       bootstrap-servers: localhost:9092
