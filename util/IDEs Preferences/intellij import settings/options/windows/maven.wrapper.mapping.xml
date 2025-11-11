@@ -1,0 +1,12 @@
+<application>
+  <component name="MavenWrapperMapping">
+    <option name="mapping">
+      <map>
+        <entry key="https://nexus.petrobras.com.br/nexus/repository/central/org/apache/maven/apache-maven/3.8.8/apache-maven-3.8.8-bin.zip" value="C:\Users\bmv3\.m2\wrapper\dists\apache-maven-3.8.8-bin\20ftotl1mge6jnt2t5asat8q0\apache-maven-3.8.8" />
+        <entry key="https://repo.maven.apache.org/maven2/org/apache/maven/apache-maven/3.9.6/apache-maven-3.9.6-bin.zip" value="C:\Users\016828631\.m2\wrapper\dists\apache-maven-3.9.6-bin\439sdfsg2nbdob9ciift5h5nse\apache-maven-3.9.6" />
+        <entry key="https://repo.maven.apache.org/maven2/org/apache/maven/apache-maven/3.9.9/apache-maven-3.9.9-bin.zip" value="C:\Users\bmv3\.m2\wrapper\dists\apache-maven-3.9.9-bin\4nf9hui3q3djbarqar9g711ggc\apache-maven-3.9.9" />
+        <entry key="https://repo1.maven.org/maven2/org/apache/maven/apache-maven/3.5.3/apache-maven-3.5.3-bin.zip" value="C:\Users\016828631\.m2\wrapper\dists\apache-maven-3.5.3-bin\2c22a6s60afpuloj4v181qvild\apache-maven-3.5.3" />
+      </map>
+    </option>
+  </component>
+</application>

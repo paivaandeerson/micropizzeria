@@ -1,0 +1,21 @@
+  {
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "type": "java",
+        "name": "Attach to Remote Program",
+        "request": "attach",
+        "hostName": "localhost",
+        "port": "8453",
+        "projectName": "Portal"
+      },
+      {
+        "type": "msedge",
+        "request": "launch",
+        "name": "Launch Edge against localhost",
+        "url": "http://localhost:4200",
+        "webRoot": "${workspaceFolder}"
+      },
+    ]
+  }
+  

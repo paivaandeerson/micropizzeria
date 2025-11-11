@@ -1,0 +1,15 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "GipPortal - Build and Start WebLogic",
+            "icon": {
+                "id": "play",
+                "color": "#f0db4f"
+            },
+            "type": "shell",
+            "command": "C:/Users/bmv3/mvn-java6.bat install -DskipTests --settings C:/Users/bmv3/.m2/settings.xml -T 2C ; C:/Users/bmv3/bea/user_projects/domains/base_domain/bin/startWebLogic.cmd",
+            "problemMatcher": []
+        }
+    ]
+}
