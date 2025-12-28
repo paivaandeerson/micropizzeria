@@ -29,7 +29,7 @@ router.post('/initiatePayment', async (req: Request, res: Response) => {
     const response = await paymentService.initiatePayment(paymentDetails);
 
     switch (response.resultCode) {
-      case "Authorised":
+      case "Authorized":
         res.send({response: "success"});
         break;
       case "Pending":

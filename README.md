@@ -1,5 +1,7 @@
 # micropizzeria microservices
 
+## On Premises mode
+
 ### 1. Run separeted containers
 1. [marketplace-front](./marketplace/)
 2. [marketplace-api](./marketplace/)
@@ -21,3 +23,10 @@ To destroy
 2.2. CMAK Kafka Manager http://localhost:9000/
 
 ![Technologies](util/technologies.png)
+
+
+## Cloud mode
+
+
+
+![cloud architecture](util/technologies%20aws.png)
