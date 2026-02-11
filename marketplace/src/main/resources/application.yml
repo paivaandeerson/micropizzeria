@@ -39,6 +39,6 @@ external:
   payment-api:
     url: http://payment:3000/api/initiatePayment
   status-order-api:
-    url: http://status-order:5000/api/status
+    url: http://statusorder:8080/api/checkstatus
 
 

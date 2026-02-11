@@ -1,19 +1,19 @@
 import { PaymentDetails, Payment } from '../models/payment';
 import { PaymentRepository } from '../../adapters/repositories/paymentRepository';
-import { AdyenService } from '../../adapters/services/adyenService';
+import { AdyenRepository } from '../../adapters/repositories/adyenRepository';
 
 export class PaymentService {
-  private paymentRepository: PaymentRepository;
-  private adyenService: AdyenService;
+  private paymentDBRepository: PaymentRepository;
+  private adyenRepository: AdyenRepository;
 
-  constructor(paymentRepository: PaymentRepository, adyenService: AdyenService) {
-    this.paymentRepository = paymentRepository;
-    this.adyenService = adyenService;
+  constructor(paymentRepository: PaymentRepository, adyenService: AdyenRepository) {
+    this.paymentDBRepository = paymentRepository;
+    this.adyenRepository = adyenService;
   }
 
   async initiatePayment(paymentDetails: PaymentDetails) {
-    const payment = await this.paymentRepository.createPayment(paymentDetails);
-    const response = await this.adyenService.processPayment(payment);
+    const payment = await this.paymentDBRepository.createPayment(paymentDetails);
+    const response = await this.adyenRepository.processPayment(payment);
     return response;
   }
 }

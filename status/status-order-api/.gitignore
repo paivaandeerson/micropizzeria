@@ -1,0 +1,42 @@
+# Visual Studio / .NET gitignore
+
+# Build directories
+[Bb]in/
+[Oo]bj/
+artifacts/
+publish/
+
+# Visual Studio
+.vs/
+.vscode/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Rider
+.idea/
+*.sln.iml
+
+# NuGet
+packages/
+*.nupkg
+.nuget/
+
+# Dotnet and MSBuild
+project.lock.json
+project.fragment.lock.json
+*.userprefs
+*.cache
+*.log
+*.tlog
+*.lastcodeanalysissucceeded
+
+# Rider/ReSharper
+_ReSharper*/
+*.DotSettings.user
+*.DotSettings
+
+# ASP.NET / IIS
+wwwroot/
+ScaffoldingReadMe.txt

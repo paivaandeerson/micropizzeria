@@ -9,4 +9,4 @@ external:
   payment-api:
     url: http://localhost:3000/api/initiatePayment
   status-order-api:
-    url: http://external-status-api.com/status
+    url: http://statusorder:8080/api/checkstatus

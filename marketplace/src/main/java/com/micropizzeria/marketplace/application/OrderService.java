@@ -1,7 +1,6 @@
 package com.micropizzeria.marketplace.application;
 
 import com.micropizzeria.marketplace.domain.model.Order;
-import com.micropizzeria.marketplace.domain.repository.OrderRepository;
 import com.micropizzeria.marketplace.domain.repository.PaymentRepository;
 import com.micropizzeria.marketplace.domain.repository.StatusOrderRepository;
 import com.micropizzeria.marketplace.infrastructure.RabbitMQProducer;
@@ -14,17 +13,16 @@ import java.util.UUID;
 @Service
 public class OrderService {
 
-    private final OrderRepository orderRepository;
     private final PaymentRepository paymentRepository;
     private final StatusOrderRepository statusOrderRepository;
+    // TODO: Refactor to use a Kafka for processing orders and payments
+    // asynchronously
     private final RabbitMQProducer rabbitMQProducer;
 
     @Autowired
-    public OrderService(OrderRepository orderRepository,
-                        PaymentRepository paymentRepository,
-                        StatusOrderRepository statusOrderRepository,
-                        RabbitMQProducer rabbitMQProducer) {
-        this.orderRepository = orderRepository;
+    public OrderService(PaymentRepository paymentRepository,
+            StatusOrderRepository statusOrderRepository,
+            RabbitMQProducer rabbitMQProducer) {
         this.paymentRepository = paymentRepository;
         this.statusOrderRepository = statusOrderRepository;
         this.rabbitMQProducer = rabbitMQProducer;
@@ -38,13 +36,23 @@ public class OrderService {
             return notification;
         }
 
-        if (paymentRepository.processPayment(orderCommand)) {
-            //should use SAGA
-            orderRepository.save(orderCommand);
-            rabbitMQProducer.sendMessage(orderCommand);
-            System.out.println("order created: "+ orderCommand.getUuid());
-            notification.setResult(orderCommand.getUuid());
+        if (!paymentRepository.processPayment(orderCommand)) {
+            notification.addError("Payment not approved");
             return notification;
+        }
+
+        try {
+            //TODO: save orderCommand in a persistent storage
+            rabbitMQProducer.sendMessage(orderCommand);
+            notification.setResult(orderCommand.getUuid());
+            System.out.println("order created: " + orderCommand.getUuid());
+            return notification;
+
+        } catch (Exception e) {
+            // TODO: to implement
+            // paymentRepository.rollBack(orderCommand)
+            // rabbitMQProducer.rollBack(orderCommand);
+            notification.addError("Error processing the order: " + e.getMessage());
         }
 
         notification.addError("Payment not approved");
@@ -53,18 +61,14 @@ public class OrderService {
 
     public Notification<String> queryOrderStatus(UUID orderId) {
         var notification = new Notification<String>();
-        var status = statusOrderRepository.getStatus(orderId);
+        var statusResult = statusOrderRepository.getStatus(orderId);
 
-        var toUpdate = orderRepository.findById(orderId).orElse(null);
-
-        if (toUpdate != null) {
-            toUpdate.setStatus(status);
-            orderRepository.save(toUpdate);
-            notification.setResult(status);
-        } else {
+        if (statusResult == null || statusResult.isEmpty()) {
             notification.addError("Order not found");
+            return notification;
         }
 
+        notification.setResult(statusResult);
         return notification;
     }
 }

@@ -1,12 +1,12 @@
 import express, { Request, Response } from 'express';
 import { PaymentService } from '../../domain/services/paymentService';
 import { PaymentRepository } from '../repositories/paymentRepository';
-import { AdyenService } from '../services/adyenService';
+import { AdyenRepository } from '../repositories/adyenRepository';
 
 const router = express.Router();
 
 const paymentRepository = new PaymentRepository();
-const adyenService = new AdyenService();
+const adyenService = new AdyenRepository();
 const paymentService = new PaymentService(paymentRepository, adyenService);
 
 // Health Check Endpoint

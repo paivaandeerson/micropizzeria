@@ -2,7 +2,7 @@ import { Response } from 'express';
 import axios from 'axios';
 import { Payment } from '../../domain/models/payment';
 
-export class AdyenService {
+export class AdyenRepository {
   async processPayment(payment: Payment): Promise<any> {
     const request = {
       paymentMethod: {

@@ -10,5 +10,8 @@ public class KafkaConsumerService {
     public void listen(String event) {
 
         System.out.printf("Consumed message: %s%n", event);
+
+        //TODO: Save in MongoDB
+
     }
 }
