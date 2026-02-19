@@ -1,6 +1,6 @@
 # micropizzeria microservices
 
-## On Premises mode
+## This Repo only contains on-premises mode
 
 ### 1. Run separeted containers
 1. [marketplace-front](./marketplace/)
@@ -27,6 +27,6 @@ To destroy
 
 ## Cloud mode
 
-
+Check it out: https://github.com/paivaandeerson/micropizzeria-aws 
 
 ![cloud architecture](util/technologies%20aws.png)
